@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Payment {
+  id                 String             @id @unique @default(uuid())
+  amount             Float // monto sin intereses
+  amountInstallment  Float // monto total a pagar parcelado
+  payInstallment     Float // monto total a pagar de cada parcelado
+  cashback           Float              @default(0) // cashback     
+  name               String // name
+  totalInstallment   Int // cantidad total de parcelas
+  creditCardInstallment         Int // cantidad total de  parcelas en tarjetas de credito
+  installmentPix     Int // cantidad total de parcelas en pix
+  isPaymentPix       Boolean            @default(false) // si se realizo el pago por pix
+  isPaymentCredicard Boolean            @default(false) // si se realizo el pago por por tarjeta de credito
+  statusPayment      Boolean            @default(false)
+  creditCardPayment  CreditCardPayment?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+}
+
+model CreditCardPayment {
+  id                    String   @id @unique @default(uuid())
+  name                  String
+  cpf                   String
+  last4DigitsCreditCard String
+  installment           Int
+  amountInstallment     Float
+  payment               Payment  @relation(fields: [paymentId], references: [id])
+  paymentId             String   @unique // relation scalar field (used in the `@relation` attribute above)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
