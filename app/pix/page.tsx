@@ -20,7 +20,7 @@ export default async function Page({ searchParams: { paymentId } }: Props) {
     let result: GetPayments;
     try {
       result = await get({
-        url: `http://localhost:3000/api/payment/${paymentId}`,
+        url: `/api/payment/${paymentId}`,
       });
       return result.result;
     } catch (error) {}
