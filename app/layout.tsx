@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
+import { StyledRoot } from "./StyledRoot";
 import "./globals.css";
+import { NavBar } from "@/components/NavBar";
+import { Footer } from "@/components/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +19,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="pt">
+      <body className={inter.className}>
+        <AppRouterCacheProvider>
+          <StyledRoot>
+            <NavBar />
+            <section className="flex flex-col items-center">{children}</section>
+            <Footer />
+          </StyledRoot>
+        </AppRouterCacheProvider>
+      </body>
     </html>
   );
 }
