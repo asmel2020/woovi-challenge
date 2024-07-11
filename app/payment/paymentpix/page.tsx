@@ -17,10 +17,12 @@ export default async function Page({
   const fetchData = async (paymentId: string) => {
     try {
       const { result }: GetPayments = await get({
-        url: `http://localhost:3000/api/payment/${paymentId}`,
+        url: `/api/payment/${paymentId}`,
       });
       return result;
-    } catch (error) {}
+    } catch (error) {
+      console.log("paymentpix", error);
+    }
 
     redirect("/");
   };
@@ -28,7 +30,8 @@ export default async function Page({
   const data = await fetchData(paymentId);
 
   if (data.isPaymentPix && data.totalInstallment === 1) redirect("/");
-  if (data.isPaymentPix && data.totalInstallment > 1) redirect(`/payment/payment-credicard?paymentId=${paymentId}`);
+  if (data.isPaymentPix && data.totalInstallment > 1)
+    redirect(`/payment/payment-credicard?paymentId=${paymentId}`);
   return (
     <main className="flex flex-col max-w-[464px]    w-full pl-4 pr-5 gap-8">
       <section className="m-auto text-center">

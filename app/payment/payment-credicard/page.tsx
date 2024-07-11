@@ -18,7 +18,7 @@ export default async function Page({
   const fetchData = async (paymentId: string) => {
     try {
       const { result }: GetPayments = await get({
-        url: `http://localhost:3000/api/payment/${paymentId}`,
+        url: `/api/payment/${paymentId}`,
       });
 
       let parcelas = [];
@@ -31,7 +31,7 @@ export default async function Page({
       }
 
       return {...result,parcelas};
-    } catch (error) {}
+    } catch (error) {console.log("payment-credicard", error);}
 
     redirect("/");
   };
