@@ -10,11 +10,16 @@ import { useForm } from "react-hook-form";
 import { FormData, schema } from "./validate";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
-interface Props {
-  data: any;
-}
-export const FormCreditCardPayment = ({ data }: Props) => {
-  const router = useRouter()
+import { FormCreditCArdPaymentProps } from "@/common/interfaces/FormCreditCArdPayment.interfaces";
+import { post } from "@/common/request";
+import toast, { Toaster } from "react-hot-toast";
+import { ModalPixTransfer } from "../ModalPixTransfer";
+
+export const FormCreditCardPayment = ({ data }: FormCreditCArdPaymentProps) => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(!open);
+
+  const router = useRouter();
   const [disabled, setDisabled] = useState<boolean>(false);
   const {
     register,
@@ -30,10 +35,39 @@ export const FormCreditCardPayment = ({ data }: Props) => {
     },
   });
 
-  const onSubmit = (formData: FormData) =>  router.push('/')
+  const onSubmit = async ({
+    cpf,
+    name,
+    creditCard,
+    parcelas: installment,
+  }: FormData) => {
+    let result = {
+      paymentId: data.id,
+      name,
+      cpf,
+      last4DigitsCreditCard: creditCard.slice(-4),
+      installment,
+      amountInstallment: data.parcelas[installment - 1].amount,
+    };
+    setDisabled(true);
+    try {
+      await post({
+        url: "/api/payment/payment-credicard",
+        data: result,
+      });
+      handleOpen();
+      reset();
+    } catch (error) {
+      toast.error("O pagamento não pode ser processado");
+      setDisabled(false);
+      return;
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-7">
+      <Toaster />
+      <ModalPixTransfer open={open} label="Pagamento processado" />
       <section className="flex flex-col gap-7">
         <TextField
           id="outlined-basic"
@@ -100,7 +134,7 @@ export const FormCreditCardPayment = ({ data }: Props) => {
         className="w-full h-9"
         disabled={disabled}
       >
-        {disabled ? <CircularProgress size={20}  /> : "Pagar"}
+        {disabled ? <CircularProgress size={20} /> : "Pagar"}
       </Button>
     </form>
   );

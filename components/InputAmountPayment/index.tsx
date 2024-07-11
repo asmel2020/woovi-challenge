@@ -6,18 +6,11 @@ interface Props {
   register: any;
   error?: boolean;
   label?: string;
+  helperText?: string | undefined;
+  disabled?:boolean
 }
-export const InputAmountPayment = ({
-  register,
-  error = false,
-  label = "",
-}: Props) => {
-
-
-
+export const InputAmountPayment = ({ register, ...props }: Props) => {
   const [value, setValue] = useState("");
-
-
 
   const formatNumber = (number: string) => {
     // Elimina cualquier caracter que no sea un número
@@ -66,16 +59,15 @@ export const InputAmountPayment = ({
     const formattedValue = formatNumber(inputValue);
     setValue(formattedValue);
   };
-  
+
   return (
     <TextField
+      {...props}
       {...register}
       id="outlined-basic"
       className="w-64 md:w-80"
-      label={label}
       variant="outlined"
       value={value}
-      error={error}
       onChange={handleChange}
     />
   );

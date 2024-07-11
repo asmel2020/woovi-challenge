@@ -1,16 +1,13 @@
 import React from "react";
-import { decode } from "js-base64";
+
 import { PropsPage } from "@/common/interfaces/PropsPage";
-import { FormSelectPayment } from "@/components/FormSelectPayment";
-import { FormatMoney } from "format-money-js";
-import { percentage } from "@/common/utils/percentage";
-import { Button, Typography } from "@mui/material";
+
+import { Typography } from "@mui/material";
 import { redirect } from "next/navigation";
 import { GetPayments } from "@/common/interfaces/getPayment.interfaces";
 import { get } from "@/common/request";
 import { parserMoney } from "@/common/utils/parserMoney";
 import { ButtonPaymentPix } from "@/components/ButtonPaymentPix";
-
 interface Props extends Omit<PropsPage, "searchParams"> {
   searchParams: { paymentId: string };
 }
@@ -23,7 +20,9 @@ export default async function Page({ searchParams: { paymentId } }: Props) {
         url: `/api/payment/${paymentId}`,
       });
       return result.result;
-    } catch (error) {}
+    } catch (error) {
+
+    }
 
     redirect("/");
   };
@@ -32,6 +31,7 @@ export default async function Page({ searchParams: { paymentId } }: Props) {
   if (data.isPaymentPix) redirect("/");
   return (
     <main className="flex flex-col max-w-[464px]   w-full pl-4 pr-5 gap-8">
+     
       <section className="m-auto">
         <h2 className="text-2xl font-bold"> Transferindo</h2>
       </section>
@@ -43,8 +43,8 @@ export default async function Page({ searchParams: { paymentId } }: Props) {
           {" "}
           Para: Woovi
         </Typography>
-      </section>
-      <ButtonPaymentPix paymentId={data.id} />
+      </section>data
+      <ButtonPaymentPix paymentId={data.id}   installment={data.totalInstallment} />
     </main>
   );
 }

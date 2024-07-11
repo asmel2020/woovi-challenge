@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 
 interface Props {
   open: boolean;
+  label?:string
 }
 const style = {
   position: "absolute" as "absolute",
@@ -20,7 +21,7 @@ const style = {
   p: 4,
 };
 
-export const ModalPixTransfer = ({ open }: Props) => {
+export const ModalPixTransfer = ({ open,label="Transferência feita" }: Props) => {
   const router = useRouter();
 
   return (

@@ -10,7 +10,6 @@ export const dynamic = "force-dynamic";
 export async function POST(request: Request) {
   const data: CreatePaymentDTO = await request.json();
 
-  //validar datos
   let createPayment = new CreatePaymentDTO();
   createPayment.amount = data.amount;
   createPayment.name = data.name;
@@ -38,7 +37,10 @@ export async function POST(request: Request) {
     decimals: 2,
   });
 
-  let dataBaseData: Omit<Payment, "id">;
+  let dataBaseData: Omit<
+    Payment,
+    "id" | "createdAt" | "statusPayment" | "updatedAt"
+  >;
   if (createPayment.installment === 1) {
     dataBaseData = {
       amount: createPayment.amount,

@@ -7,7 +7,7 @@ export async function GET(
   request: Request,
   { params: { id } }: { params: { id: string } }
 ) {
-  console.log(id)
+
   const result = await db.payment.findUnique({
     where: {
       id,

@@ -1,13 +1,14 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { InputAmountPayment } from "../InputAmountPayment";
-import { Button } from "@mui/material";
+import { Button, CircularProgress, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormData, schema } from "./validate";
 import { useRouter } from "next/navigation";
 import { encode } from "js-base64";
 import { post } from "@/common/request";
+import toast, { Toaster } from "react-hot-toast";
 export const FormValue = () => {
   const router = useRouter();
   const {
@@ -23,28 +24,28 @@ export const FormValue = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data: FormData) => {
-    const amount = +data.amount.replaceAll(".", "").replaceAll(",", ".");
+  const [disabled, setDisabled] = useState<boolean>(false);
+  const onSubmit = async ({ amount, nome }: FormData) => {
+    setDisabled(true)
+    const value = +amount.replaceAll(".", "").replaceAll(",", ".");
 
-    if (isNaN(amount)) {
-      setError("amount", { message: "d" });
+    if (isNaN(value)) {
+      setError("amount", { message: "" });
+      setDisabled(false)
       return;
     }
 
     try {
-     /*  const {
-        result: { id },
-      } = await post({
-        url: "/api/payment",
-        data: {
-          amount,
-          name: "hola",
-        },
-      }); */
       reset();
-      router.push(`/payment/select-payment?amount=${encode(JSON.stringify({amount}))}`);
+      router.push(
+        `/payment/select-payment?data=${encode(
+          JSON.stringify({ amount: value, nome })
+        )}`
+      );
+      setDisabled(false)
     } catch (error) {
-      setError("amount", { message: "d" });
+      setDisabled(false);
+      toast.success('Erro ao pagar')
       return;
     }
   };
@@ -52,15 +53,33 @@ export const FormValue = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className=" flex flex-col items-center justify-center w-full gap-5"
+      className=" flex flex-col w-full gap-5 items-center"
     >
+      <Toaster />
+      <TextField
+        id="outlined-basic"
+        className="w-full md:w-80"
+        label={"Nome"}
+        variant="outlined"
+        error={!!errors.nome}
+        {...register("nome")}
+        helperText={errors.nome?.message}
+        disabled={disabled}
+      />
       <InputAmountPayment
         register={register("amount")}
         error={!!errors.amount}
         label="Valor que você deseja pagar"
+        helperText={errors.amount?.message}
+        disabled={disabled}
       />
-      <Button variant="contained" type="submit" sx={{ background: "#133A6F" }}>
-        Pagar
+      <Button
+        variant="contained"
+        type="submit"
+        sx={{ background: "#133A6F" }}
+        className="w-full"
+        disabled={disabled}
+      > {disabled ? <CircularProgress size={20} /> : "Pagar"}
       </Button>
     </form>
   );

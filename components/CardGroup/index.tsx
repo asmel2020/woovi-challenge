@@ -19,7 +19,7 @@ export const CardGroup = ({ pixParcelado, register }: Props) => {
           let isHeader: "header" | "body" | "footer";
           switch (numberParcela) {
             case 2:
-              isHeader = "body";
+              isHeader = "header";
               break;
             case 7:
               isHeader = "footer";

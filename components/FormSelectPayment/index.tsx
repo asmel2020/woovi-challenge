@@ -27,7 +27,7 @@ export const FormSelectPayment = ({ data }: Props) => {
     resolver: yupResolver(schema),
   });
   const onSubmit = async (formData: FormData) => {
-    let name = "hola";
+    let name = data.nome || "";
     let amount = data.amount;
     let installment = formData.id;
 

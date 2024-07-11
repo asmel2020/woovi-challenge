@@ -1,22 +1,33 @@
 import { validate } from "class-validator";
-import { CreatePaymentDTO } from "../dto/CreatePayment.dto";
 import { db } from "@/common/db";
 import { percentage } from "@/common/utils/percentage";
 import { FormatMoney } from "format-money-js";
 import { Payment } from "@prisma/client";
+import { CreatePaymentCreditCardDTO } from "../dto/CreatePaymentCreditCard.dto";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
-  const data: CreatePaymentDTO = await request.json();
+  let {
+    amountInstallment,
+    cpf,
+    installment,
+    last4DigitsCreditCard,
+    name,
+    paymentId,
+  }: CreatePaymentCreditCardDTO = await request.json();
 
   //validar datos
-  let createPayment = new CreatePaymentDTO();
-  createPayment.amount = data.amount;
-  createPayment.name = data.name;
-  createPayment.installment = data.installment;
+  let paymentCreditCard = new CreatePaymentCreditCardDTO();
 
-  const errors = await validate(createPayment);
+  paymentCreditCard.paymentId = paymentId;
+  paymentCreditCard.name = name;
+  paymentCreditCard.amountInstallment = amountInstallment;
+  paymentCreditCard.installment = installment;
+  paymentCreditCard.last4DigitsCreditCard = last4DigitsCreditCard;
+  paymentCreditCard.cpf = cpf;
+
+  const errors = await validate(paymentCreditCard);
   if (errors.length > 0) {
     const result = errors.map(({ property, constraints }) => {
       let errorMessage = Object.keys(constraints as any).map(
@@ -33,65 +44,39 @@ export async function POST(request: Request) {
       status: 404,
     });
   }
-  const fm = new FormatMoney({
-    separator: "",
-    decimals: 2,
-  });
 
-  let dataBaseData: Omit<Payment, "id">;
-  if (createPayment.installment === 1) {
-    dataBaseData = {
-      amount: createPayment.amount,
-      amountInstallment: createPayment.amount,
-      payInstallment: createPayment.amount,
-      cashback: +(fm.from(createPayment.amount * 0.03)?.toString() || "0"),
-      creditCardInstallment: 0,
-      totalInstallment: createPayment.installment,
-      installmentPix: 1,
-      isPaymentCredicard: true,
-      isPaymentPix: false,
-      name: createPayment.name,
-    };
-  } else {
-    const payInstallment = +(
-      fm
-        .from(
-          (createPayment.amount +
-            createPayment.amount * percentage[createPayment.installment - 2]) /
-            createPayment.installment
-        )
-        ?.toString() || "0"
-    );
-    const amountInstallment = +(
-      fm
-        .from(
-          createPayment.amount +
-            createPayment.amount * percentage[createPayment.installment - 2]
-        )
-        ?.toString() || "0"
-    );
+  try {
+    const payment = await db.payment.update({
+      where: {
+        id: paymentCreditCard.paymentId,
+        isPaymentPix: true,
+      },
+      data: {
+        isPaymentCredicard: true,
+        statusPayment: true,
+        creditCardPayment: {
+          create: {
+            amountInstallment,
+            last4DigitsCreditCard,
+            cpf,
+            installment,
+            name,
+          },
+        },
+      },
+      select: { id: true },
+    });
 
-    dataBaseData = {
-      amount: createPayment.amount,
-      amountInstallment,
-      payInstallment,
-      cashback: 0,
-      totalInstallment: createPayment.installment,
-      creditCardInstallment: createPayment.installment - 1,
-      installmentPix: 1,
-      isPaymentCredicard: false,
-      isPaymentPix: false,
-      name: createPayment.name,
-    };
+ 
+    return new Response(null, {
+      headers: { "Content-Type": "application/json" },
+      status: 202,
+    });
+  } catch (error) {
+ 
+    return new Response(null, {
+      headers: { "Content-Type": "application/json" },
+      status: 404,
+    });
   }
-
-  const payment = await db.payment.create({
-    data: dataBaseData,
-    select: { id: true },
-  });
-
-  return new Response(JSON.stringify({ result: { id: payment.id } }), {
-    headers: { "Content-Type": "application/json" },
-    status: 202,
-  });
 }

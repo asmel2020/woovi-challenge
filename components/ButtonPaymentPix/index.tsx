@@ -3,10 +3,12 @@ import { post } from "@/common/request";
 import { Button, CircularProgress } from "@mui/material";
 import React, { useState } from "react";
 import { ModalPixTransfer } from "../ModalPixTransfer";
+import toast, { Toaster } from "react-hot-toast";
 interface Props {
   paymentId: string;
+  installment: number;
 }
-export const ButtonPaymentPix = ({ paymentId }: Props) => {
+export const ButtonPaymentPix = ({ paymentId, installment }: Props) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(!open);
 
@@ -18,15 +20,19 @@ export const ButtonPaymentPix = ({ paymentId }: Props) => {
         url: "/api/pix",
         data: {
           id: paymentId,
+          installment: installment,
         },
       });
       handleOpen();
-    } catch (error) {}
+      setDisabled(false);
+    } catch (error) {
+      toast.error("A transferência não pôde ser processada");
+    }
     setDisabled(false);
   };
   return (
     <>
-      {" "}
+      <Toaster />
       <ModalPixTransfer open={open} />{" "}
       <Button
         disabled={disabled}

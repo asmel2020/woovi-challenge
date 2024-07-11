@@ -16,6 +16,7 @@ export interface Root {
 }
 
 export interface GetPayment {
+  nome?:string
   amount: number;
   valuePix: ValuePix;
 }

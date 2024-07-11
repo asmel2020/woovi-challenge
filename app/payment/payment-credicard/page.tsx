@@ -4,8 +4,6 @@ import { PropsPage } from "@/common/interfaces/PropsPage";
 import { get } from "@/common/request";
 import { GetPayments } from "@/common/interfaces/getPayment.interfaces";
 import { redirect } from "next/navigation";
-import { parserMoney } from "@/common/utils/parserMoney";
-import { PixQrColePege } from "@/components/PixQrColePege";
 import { FooterPayment } from "@/components/FooterPayment";
 import { FormCreditCardPayment } from "@/components/FormCreditCardPayment";
 
@@ -26,12 +24,15 @@ export default async function Page({
       for (let index = 0; index < result.creditCardInstallment; index++) {
         parcelas.push({
           installment: index + 1,
-          amount: result.payInstallment * (result.creditCardInstallment - index),
+          amount:
+            result.payInstallment * (result.creditCardInstallment - index),
         });
       }
 
-      return {...result,parcelas};
-    } catch (error) {console.log("payment-credicard", error);}
+      return { ...result, parcelas };
+    } catch (error) {
+      console.log("payment-credicard", error);
+    }
 
     redirect("/");
   };
@@ -46,16 +47,10 @@ export default async function Page({
   return (
     <main className="flex flex-col max-w-[464px]    w-full pl-4 pr-5 gap-8">
       <section className="m-auto text-center">
-        <h2 className="text-2xl font-bold"> João, pague a entrada de</h2>
-        <h2 className="text-2xl font-bold">
-          R${" "}
-          {data.totalInstallment === 1
-            ? parserMoney(data.amount)
-            : parserMoney(data.payInstallment)}{" "}
-          pelo Pix
-        </h2>
+        <h2 className="text-2xl font-bold"> João, pague o restante em {data.creditCardInstallment}x no</h2>
+        <h2 className="text-2xl font-bold">cartão</h2>
       </section>
-      <FormCreditCardPayment data={data} />
+      <FormCreditCardPayment data={data as any} />
       <FooterPayment data={data} />
     </main>
   );

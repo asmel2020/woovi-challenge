@@ -6,6 +6,9 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --primary: 3, 214, 157;
+  --secondary: 229, 229, 229;
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,4 +33,9 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+
+.Mui-checked {
+  color: rgb(var(--primary)) !important;
 }
