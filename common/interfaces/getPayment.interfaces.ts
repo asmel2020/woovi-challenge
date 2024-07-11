@@ -1,12 +1,7 @@
-export interface GetPayment {
-    result: Result
-  }
+
   
-  export interface Result {
-    id: string
+  export interface GetPayment {
     amount: number
-    name: string
-    isPayment: boolean
     valuePix: ValuePix
   }
   
@@ -16,7 +11,8 @@ export interface GetPayment {
   }
   
   export interface PixParcelado {
+    numberParcela: number
     total: number
-    parcela: number
+    parcelaAmount: number
   }
   

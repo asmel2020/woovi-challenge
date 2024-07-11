@@ -6,14 +6,16 @@ import { useForm } from "react-hook-form";
 import { Button, RadioGroup } from "@mui/material";
 import { CardPix } from "../CardPix";
 import { CardGroup } from "../CardGroup";
-import { GetPayment } from "@/common/interfaces/getPayment.interfaces";
+import {
+  GetPayment,
+  ValuePix,
+} from "@/common/interfaces/getPayment.interfaces";
 import { useRouter } from "next/navigation";
 interface Props {
   data: GetPayment;
-  paymentId:string
 }
 
-export const FormSelectPayment = ({ data,paymentId }: Props) => {
+export const FormSelectPayment = ({ data }: Props) => {
   const router = useRouter();
   const {
     register,
@@ -24,7 +26,16 @@ export const FormSelectPayment = ({ data,paymentId }: Props) => {
     resolver: yupResolver(schema),
   });
   const onSubmit = (data: FormData) => {
-    router.push(`/payment/paymentpix?parcela=${data.id}&paymentId=${paymentId}`);
+   /*  const {
+      result: { id },
+    } = await post({
+      url: "/api/payment",
+      data: {
+        amount,
+        name: "hola",
+      },
+    }); */
+    /*   router.push(`/payment/paymentpix?parcela=${data.id}&paymentId=${'paymentId'}`); */
   };
 
   return (
@@ -37,20 +48,20 @@ export const FormSelectPayment = ({ data,paymentId }: Props) => {
       >
         {/* Card Pix */}
         <CardPix
-          value={data.result.amount}
-          cashback={data.result.valuePix.pixCashback}
+          value={data.amount}
+          cashback={data.valuePix.pixCashback}
           register={register("id")}
         />
 
         {/*  CardGroup */}
         <CardGroup
-          pixParcelado={data.result.valuePix.PixParcelado}
+          pixParcelado={data.valuePix.PixParcelado}
           register={register("id")}
         />
       </RadioGroup>
       <Button
         variant="contained"
-        sx={{background:"#133A6F"}}
+        sx={{ background: "#133A6F" }}
         type="submit"
         className="w-full"
       >

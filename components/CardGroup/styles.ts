@@ -17,13 +17,13 @@ ${({ $isHeader }) => {
   switch ($isHeader) {
     case "header":
       return "rounded-t-xl";
-      break;
+
     case "body":
       return "border-t-0";
-      break;
+
     case "footer":
       return "border-t-0 rounded-b-xl";
-      break;
+
     default:
       break;
   }

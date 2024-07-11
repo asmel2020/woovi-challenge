@@ -1,14 +1,14 @@
 import React, { PropsWithChildren } from "react";
+import * as S from "./styles";
 interface Props extends PropsWithChildren {
-    label:string
+  label: string;
+  hidden?: boolean;
 }
-export const CardContainer = ({children,label}:Props) => {
+export const CardContainer = ({ children, label, hidden = false }: Props) => {
   return (
     <section className="relative">
-      <span className="absolute -top-3 left-5 h-7 w-auto px-5 bg-[#E5E5E5] rounded-full text-center text-lg font-bold">
-        {label}
-      </span>
-     {children}
+      <S.IconTag $isHidden={hidden}>{label}</S.IconTag>
+      {children}
     </section>
   );
 };

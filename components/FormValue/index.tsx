@@ -26,15 +26,13 @@ export const FormValue = () => {
   const onSubmit = async (data: FormData) => {
     const amount = +data.amount.replaceAll(".", "").replaceAll(",", ".");
 
-
     if (isNaN(amount)) {
       setError("amount", { message: "d" });
       return;
     }
-   
-   
-       try {
-      const {
+
+    try {
+     /*  const {
         result: { id },
       } = await post({
         url: "/api/payment",
@@ -42,9 +40,9 @@ export const FormValue = () => {
           amount,
           name: "hola",
         },
-      });
+      }); */
       reset();
-      router.push(`/payment/select-payment?paymentId=${id}`);
+      router.push(`/payment/select-payment?amount=${encode(JSON.stringify({amount}))}`);
     } catch (error) {
       setError("amount", { message: "d" });
       return;
@@ -61,7 +59,7 @@ export const FormValue = () => {
         error={!!errors.amount}
         label="Valor que você deseja pagar"
       />
-      <Button variant="contained" type="submit" sx={{background:"#133A6F"}}>
+      <Button variant="contained" type="submit" sx={{ background: "#133A6F" }}>
         Pagar
       </Button>
     </form>
