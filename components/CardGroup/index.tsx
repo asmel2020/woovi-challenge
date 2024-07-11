@@ -29,7 +29,7 @@ export const CardGroup = ({ pixParcelado, register }: Props) => {
               break;
           }
           return (
-            <CardContainer label="Pix Parcelado" hidden={numberParcela !== 2}>
+            <CardContainer label="Pix Parcelado" hidden={numberParcela !== 2} key={index}>
               <S.Container $isHeader={isHeader}>
                 <section className="flex justify-between">
                   <section className="flex flex-col">
