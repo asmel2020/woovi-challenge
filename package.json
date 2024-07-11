@@ -25,8 +25,10 @@
     "next-api-decorators": "^2.0.2",
     "prisma": "^5.16.2",
     "react": "^18",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18",
     "react-hook-form": "^7.52.1",
+    "react-hot-toast": "^2.4.1",
     "react-qr-code": "^2.0.15",
     "tailwind-styled-components": "^2.2.0",
     "yup": "^1.4.0"
@@ -34,6 +36,7 @@
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
+    "@types/react-copy-to-clipboard": "^5.0.7",
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",

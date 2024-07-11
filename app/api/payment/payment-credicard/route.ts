@@ -1,5 +1,5 @@
 import { validate } from "class-validator";
-import { CreatePaymentDTO } from "./dto/CreatePayment.dto";
+import { CreatePaymentDTO } from "../dto/CreatePayment.dto";
 import { db } from "@/common/db";
 import { percentage } from "@/common/utils/percentage";
 import { FormatMoney } from "format-money-js";

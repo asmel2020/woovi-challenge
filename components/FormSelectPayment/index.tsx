@@ -11,6 +11,7 @@ import {
   ValuePix,
 } from "@/common/interfaces/getPayment.interfaces";
 import { useRouter } from "next/navigation";
+import { post } from "@/common/request";
 interface Props {
   data: GetPayment;
 }
@@ -25,17 +26,22 @@ export const FormSelectPayment = ({ data }: Props) => {
   } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data: FormData) => {
-   /*  const {
+  const onSubmit = async (formData: FormData) => {
+    let name = "hola";
+    let amount = data.amount;
+    let installment = formData.id;
+
+    const {
       result: { id },
     } = await post({
       url: "/api/payment",
       data: {
         amount,
-        name: "hola",
+        name,
+        installment,
       },
-    }); */
-    /*   router.push(`/payment/paymentpix?parcela=${data.id}&paymentId=${'paymentId'}`); */
+    });
+    router.push(`/payment/paymentpix?paymentId=${id}`);
   };
 
   return (

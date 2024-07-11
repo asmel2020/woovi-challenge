@@ -6,8 +6,19 @@ import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 import { Typography } from "@mui/material";
-
-export default function BasicTimeline() {
+import { parserMoney } from "@/common/utils/parserMoney";
+interface Props {
+  isCardPay: boolean;
+  paymentPix: number;
+  creditCardInstallment:number
+  isPaymentPix:boolean
+}
+export default function BasicTimeline({
+  isCardPay = false,
+  paymentPix = 0,
+  creditCardInstallment=0,
+  isPaymentPix
+}: Props) {
   return (
     <Timeline
       sx={{
@@ -25,39 +36,47 @@ export default function BasicTimeline() {
               borderColor: "#03D69D",
             }}
           />
-          <TimelineConnector
-            sx={{
-              background: "#03D69D",
-            }}
-          />
+          {isCardPay ? (
+            <TimelineConnector
+              sx={{
+                background: isPaymentPix?"#03D69D":"",
+              }}
+            />
+          ) : (
+            <></>
+          )}
         </TimelineSeparator>
         <TimelineContent className=" flex justify-between w-full">
           <Typography fontSize={18} fontWeight={600}>
             1ª entrada no Pix
           </Typography>
           <Typography fontSize={18} fontWeight={800}>
-            R$ 15.300,00
+            R$ {parserMoney(paymentPix)}
           </Typography>
         </TimelineContent>
       </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot
-            variant="outlined"
-            sx={{
-              borderColor: "#03D69D",
-            }}
-          />
-        </TimelineSeparator>
-        <TimelineContent className=" flex justify-between w-full">
-          <Typography fontSize={18} fontWeight={600}>
-            2ª no cartão
-          </Typography>
-          <Typography fontSize={18} fontWeight={800}>
-            R$ 15.300,00
-          </Typography>
-        </TimelineContent>
-      </TimelineItem>
+      {isCardPay ? (
+        <TimelineItem>
+          <TimelineSeparator>
+            <TimelineDot
+              variant="outlined"
+              sx={{
+                borderColor: isPaymentPix?"#03D69D":"",
+              }}
+            />
+          </TimelineSeparator>
+          <TimelineContent className=" flex justify-between w-full">
+            <Typography fontSize={18} fontWeight={600}>
+              2ª no cartão
+            </Typography>
+            <Typography fontSize={18} fontWeight={800}>
+              R$ {parserMoney(paymentPix*creditCardInstallment)}
+            </Typography>
+          </TimelineContent>
+        </TimelineItem>
+      ) : (
+        <></>
+      )}
     </Timeline>
   );
 }

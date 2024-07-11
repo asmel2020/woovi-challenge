@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { parserMoney } from "@/common/utils/parserMoney";
 import { PixQrColePege } from "@/components/PixQrColePege";
 import { FooterPayment } from "@/components/FooterPayment";
+import { FormCreditCardPayment } from "@/components/FormCreditCardPayment";
 
 interface Props extends Omit<PropsPage, "searchParams"> {
   searchParams: { paymentId: string; parcela: string };
@@ -19,7 +20,17 @@ export default async function Page({
       const { result }: GetPayments = await get({
         url: `http://localhost:3000/api/payment/${paymentId}`,
       });
-      return result;
+
+      let parcelas = [];
+
+      for (let index = 0; index < result.creditCardInstallment; index++) {
+        parcelas.push({
+          installment: index + 1,
+          amount: result.payInstallment * (result.creditCardInstallment - index),
+        });
+      }
+
+      return {...result,parcelas};
     } catch (error) {}
 
     redirect("/");
@@ -27,8 +38,11 @@ export default async function Page({
 
   const data = await fetchData(paymentId);
 
-  if (data.isPaymentPix && data.totalInstallment === 1) redirect("/");
-  if (data.isPaymentPix && data.totalInstallment > 1) redirect(`/payment/payment-credicard?paymentId=${paymentId}`);
+  if (!data.isPaymentPix)
+    redirect(`/payment/paymentpix?paymentId=${paymentId}`);
+
+  if (data.isPaymentCredicard) redirect(`/`);
+
   return (
     <main className="flex flex-col max-w-[464px]    w-full pl-4 pr-5 gap-8">
       <section className="m-auto text-center">
@@ -41,8 +55,7 @@ export default async function Page({
           pelo Pix
         </h2>
       </section>
-
-      <PixQrColePege id={data.id} />
+      <FormCreditCardPayment data={data} />
       <FooterPayment data={data} />
     </main>
   );
