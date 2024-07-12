@@ -8,7 +8,6 @@ import { CardPix } from "../CardPix";
 import { CardGroup } from "../CardGroup";
 import {
   GetPayment,
-  ValuePix,
 } from "@/common/interfaces/getPayment.interfaces";
 import { useRouter } from "next/navigation";
 import { post } from "@/common/request";
@@ -28,6 +27,7 @@ export const FormSelectPayment = ({ data }: Props) => {
     resolver: yupResolver(schema),
   });
   const onSubmit = async (formData: FormData) => {
+    setDisabled(true)
     let name = data.nome || "";
     let amount = data.amount;
     let installment = formData.id;
@@ -54,7 +54,7 @@ export const FormSelectPayment = ({ data }: Props) => {
         className="flex flex-col gap-8"
       >
         {/* Card Pix */}
-        <CardPix
+        <CardPix disabled={disabled}
           value={data.amount}
           cashback={data.valuePix.pixCashback}
           register={register("id")}
@@ -62,6 +62,7 @@ export const FormSelectPayment = ({ data }: Props) => {
 
         {/*  CardGroup */}
         <CardGroup
+        disabled={disabled}
           pixParcelado={data.valuePix.PixParcelado}
           register={register("id")}
         />
@@ -71,6 +72,7 @@ export const FormSelectPayment = ({ data }: Props) => {
         sx={{ background: "#133A6F" }}
         type="submit"
         className="w-full"
+        disabled={disabled}
       >
         {disabled ? <CircularProgress size={20} /> : "Selecione"}
       </Button>

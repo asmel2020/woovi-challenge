@@ -8,8 +8,9 @@ interface Props {
   value: number;
   cashback: number;
   register: any;
+  disabled?:boolean
 }
-export const CardPix = ({ value, cashback, register }: Props) => {
+export const CardPix = ({ value, cashback, register,disabled=false }: Props) => {
   return (
     <CardContainer label="Pix">
       <section className="flex w-full flex-col  border-[3px] h-[137px] rounded-xl px-5 pt-5 gap-1">
@@ -24,7 +25,8 @@ export const CardPix = ({ value, cashback, register }: Props) => {
           </section>
           <FormControlLabel
             value={1}
-            control={<Radio {...register} value={1} />}
+            
+            control={<Radio {...register} value={1} disabled={disabled} />}
             label={""}
           />
         </section>

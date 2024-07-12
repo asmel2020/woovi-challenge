@@ -9,9 +9,10 @@ import { CardContainer } from "../CardContainer";
 interface Props {
   pixParcelado: PixParcelado[];
   register: any;
+  disabled?:boolean
 }
 
-export const CardGroup = ({ pixParcelado, register }: Props) => {
+export const CardGroup = ({ pixParcelado, register,disabled=false }: Props) => {
   return (
     <section className="text-[#4D4D4D]">
       {pixParcelado.map(
@@ -42,7 +43,7 @@ export const CardGroup = ({ pixParcelado, register }: Props) => {
                   </section>
                   <FormControlLabel
                     value={index + 2}
-                    control={<Radio {...register} value={index + 2} />}
+                    control={<Radio {...register} value={index + 2} disabled={disabled} />}
                     label={""}
                   />
                 </section>
