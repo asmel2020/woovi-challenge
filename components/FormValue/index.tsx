@@ -26,26 +26,24 @@ export const FormValue = () => {
 
   const [disabled, setDisabled] = useState<boolean>(false);
   const onSubmit = async ({ amount, nome }: FormData) => {
-    setDisabled(true)
+    setDisabled(true);
     const value = +amount.replaceAll(".", "").replaceAll(",", ".");
 
     if (isNaN(value)) {
       setError("amount", { message: "" });
-      setDisabled(false)
+      setDisabled(false);
       return;
     }
 
     try {
-      reset(); 
       router.push(
         `/payment/select-payment?data=${encode(
           JSON.stringify({ amount: value, nome })
         )}`
       );
-      setDisabled(false)
     } catch (error) {
       setDisabled(false);
-      toast.success('Erro ao pagar')
+      toast.success("Erro ao pagar");
       return;
     }
   };
@@ -79,7 +77,9 @@ export const FormValue = () => {
         sx={{ background: "#133A6F" }}
         className="w-full"
         disabled={disabled}
-      > {disabled ? <CircularProgress size={20} /> : "Pagar"}
+      >
+        {" "}
+        {disabled ? <CircularProgress size={20} /> : "Pagar"}
       </Button>
     </form>
   );

@@ -2,7 +2,7 @@
 import React from "react";
 import * as S from "./styles";
 import { parserMoney } from "@/common/utils/parserMoney";
-import { Button, FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import { Button} from "@mui/material";
 import { CardContainer } from "../CardContainer";
 import { Payment } from "@/common/interfaces/mainData.interfaces";
 import { useRouter } from "next/navigation";

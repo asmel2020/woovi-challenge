@@ -2,5 +2,5 @@
 import { redirect } from "next/navigation";
 
 export default function NotFound() {
-  return redirect("/");
+  return <>pagina fuera de servicio</>
 }
