@@ -1,9 +1,9 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { FormData, schema } from "./validate";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { Button, RadioGroup } from "@mui/material";
+import { Button, CircularProgress, RadioGroup } from "@mui/material";
 import { CardPix } from "../CardPix";
 import { CardGroup } from "../CardGroup";
 import {
@@ -17,6 +17,7 @@ interface Props {
 }
 
 export const FormSelectPayment = ({ data }: Props) => {
+  const [disabled, setDisabled] = useState<boolean>(false);
   const router = useRouter();
   const {
     register,
@@ -71,7 +72,7 @@ export const FormSelectPayment = ({ data }: Props) => {
         type="submit"
         className="w-full"
       >
-        Selecione
+        {disabled ? <CircularProgress size={20} /> : "Selecione"}
       </Button>
     </form>
   );
