@@ -36,7 +36,7 @@ export const FormValue = () => {
     }
 
     try {
-      reset();
+      reset(); 
       router.push(
         `/payment/select-payment?data=${encode(
           JSON.stringify({ amount: value, nome })
