@@ -47,7 +47,7 @@ export default async function Page({
   return (
     <main className="flex flex-col max-w-[464px]    w-full pl-4 pr-5 gap-8">
       <section className="m-auto text-center">
-        <h2 className="text-2xl font-bold"> João, pague o restante em {data.creditCardInstallment}x no</h2>
+        <h2 className="text-2xl font-bold"> {data.name}, pague o restante em {data.creditCardInstallment}x no</h2>
         <h2 className="text-2xl font-bold">cartão</h2>
       </section>
       <FormCreditCardPayment data={data as any} />
