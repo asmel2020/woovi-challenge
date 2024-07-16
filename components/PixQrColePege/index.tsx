@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@mui/material";
+import { Button, Card } from "@mui/material";
 import React, { useEffect } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { ClipCopyIcon } from "../Svg";
@@ -24,14 +24,14 @@ export const PixQrColePege = ({ id }: Props) => {
   return (
     <section className="flex flex-col items-center gap-5">
       <Toaster />
-      <section className="flex h-80 w-80 border-2 rounded-xl p-2 border-[#03D69D]">
+      <Card  sx={{height:320,width:320,border:3,borderRadius:3,padding:1 ,borderColor:"secondary.main"}} >
         <QRCode
           size={256}
           style={{ height: "auto", maxWidth: "100%", width: "100%" }}
           value={`${process.env.NEXT_PUBLIC_BASE_URL}/pix?paymentId=${id}`}
           viewBox={`0 0 256 256`}
         />
-      </section>
+      </Card>
       <CopyToClipboard
         text={`${process.env.NEXT_PUBLIC_BASE_URL}/pix?paymentId=${id}`}
         onCopy={handelCopy}
@@ -39,11 +39,15 @@ export const PixQrColePege = ({ id }: Props) => {
         <Button
           variant="contained"
           sx={{
-            background: "#133A6F",
+            fontWeight: 700,
+            display: "flex",
+            gap: 1,
+            justifyItems: "center",
+            width: "100%",
+            textTransform: "none",
           }}
-          className="w-full flex gap-3 items-center"
         >
-          <span className="capitalize">Clique para copiar QR CODE</span>{" "}
+          Clique para copiar QR CODE
           <ClipCopyIcon />
         </Button>
       </CopyToClipboard>

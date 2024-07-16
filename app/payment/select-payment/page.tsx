@@ -4,13 +4,17 @@ import { PropsPage } from "@/common/interfaces/PropsPage";
 import { FormSelectPayment } from "@/components/FormSelectPayment";
 import { FormatMoney } from "format-money-js";
 import { percentage } from "@/common/utils/percentage";
+import { Box, Container, Typography } from "@mui/material";
+import { ContainerStyles } from "./select-payment.styles";
 
 interface Props extends Omit<PropsPage, "searchParams"> {
   searchParams: { data: string };
 }
 export default async function Page({ searchParams: { data } }: Props) {
   const Decode = (value: string) => {
-    const {amount,nome}: { amount: number; nome: String } = JSON.parse(decode(value));
+    const { amount, nome }: { amount: number; nome: String } = JSON.parse(
+      decode(value)
+    );
 
     const fm = new FormatMoney({
       separator: "",
@@ -22,9 +26,7 @@ export default async function Page({ searchParams: { data } }: Props) {
       PixParcelado: percentage.map((percentagem, index) => {
         return {
           numberParcela: index + 2,
-          total: +(
-            fm.from(amount + amount * percentagem)?.toString() || "0"
-          ),
+          total: +(fm.from(amount + amount * percentagem)?.toString() || "0"),
 
           parcelaAmount: +(
             fm
@@ -44,12 +46,15 @@ export default async function Page({ searchParams: { data } }: Props) {
   const result = Decode(data);
 
   return (
-    <main className="flex flex-col max-w-[464px]   w-full pl-4 pr-5 gap-8">
-      <section className="m-auto">
-        <h2 className="text-2xl font-bold cap"> <span className="capitalize">{result.nome}</span>, como você quer pagar?</h2>
-      </section>
+    <Container sx={{ ...ContainerStyles }} className="">
+      <Box sx={{ margin: "auto" }}>
+        <Typography sx={{ fontSize: 26, fontWeight: 700 }}>
+          <span className="capitalize">{result.nome}</span>, como você quer
+          pagar?
+        </Typography>
+      </Box>
 
       <FormSelectPayment data={result as any} />
-    </main>
+    </Container>
   );
 }

@@ -1,8 +1,16 @@
 "use client";
 import React from "react";
-import * as S from "./styles";
+import {
+  CardStyles,
+  CardBorderStyles,
+  CardBodyStyles,
+  commonStyles,
+  TextPrimary,
+  TextSecondary,
+  ButtonStyles,
+} from "./styles";
 import { parserMoney } from "@/common/utils/parserMoney";
-import { Button} from "@mui/material";
+import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import { CardContainer } from "../CardContainer";
 import { Payment } from "@/common/interfaces/mainData.interfaces";
 import { useRouter } from "next/navigation";
@@ -15,7 +23,7 @@ interface Props {
 export const CardGroupPending = ({ payment, isComplete }: Props) => {
   const router = useRouter();
   return (
-    <section className="text-[#4D4D4D]">
+    <Box>
       {payment.map(
         (
           {
@@ -52,47 +60,55 @@ export const CardGroupPending = ({ payment, isComplete }: Props) => {
               hidden={!(isHeader === "header")}
               key={index}
             >
-              <S.Container $isHeader={isHeader}>
-                <section className="flex justify-between">
-                  <section className="flex flex-col">
-                    <span className="font-bold text-lg">
-                      Total: {parserMoney(amountInstallment)}
-                    </span>
-                    <span className="font-bold text-lg">
-                      Parcelas: {totalInstallment}
-                    </span>
-                    <span className="font-semibold text-[#AFAFAF]">
-                      pix: {installmentPix}x{" "}
-                      {isPaymentPix ? "concluído" : "pendentes"}
-                    </span>
-                    <span className="font-semibold text-[#AFAFAF]">
-                      Número do cartão: {creditCardInstallment}x{" "}
-                      {isPaymentCredicard ? "concluído" : "pendentes"}
-                    </span>
-                  </section>
+              <Card
+                variant="outlined"
+                sx={{
+                  ...(CardBorderStyles[isHeader] as any),
+                  ...CardStyles,
+                }}
+              >
+                <CardContent sx={{ ...CardBodyStyles }}>
+                  <Typography
+                    sx={{ ...TextPrimary }}
+                    className="font-bold text-lg"
+                  >
+                    Total: {parserMoney(amountInstallment)}
+                  </Typography>
+                  <Typography
+                    sx={{ ...TextPrimary }}
+                    className="font-bold text-lg"
+                  >
+                    Parcelas: {totalInstallment}
+                  </Typography>
+                  <Typography sx={{ ...TextSecondary }}>
+                    pix: {installmentPix}x{" "}
+                    {isPaymentPix ? "concluído" : "pendentes"}
+                  </Typography>
+                  <Typography sx={{ ...TextSecondary }}>
+                    Número do cartão: {creditCardInstallment}x{" "}
+                    {isPaymentCredicard ? "concluído" : "pendentes"}
+                  </Typography>
+
                   {isComplete ? (
                     <></>
                   ) : (
-                    <section className="flex justify-center items-center">
-                      <Button
-                        variant="contained"
-                        type="submit"
-                        sx={{ background: "#133A6F" }}
-                        className="w-full"
-                        onClick={() =>
-                          router.push(`/payment/paymentpix?paymentId=${id}`)
-                        }
-                      >
-                        Pagar
-                      </Button>
-                    </section>
+                    <Button
+                      variant="contained"
+                      type="submit"
+                      sx={{...ButtonStyles}}
+                      onClick={() =>
+                        router.push(`/payment/paymentpix?paymentId=${id}`)
+                      }
+                    >
+                      Pagar
+                    </Button>
                   )}
-                </section>
-              </S.Container>
+                </CardContent>
+              </Card>
             </CardContainer>
           );
         }
       )}
-    </section>
+    </Box>
   );
 };

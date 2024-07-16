@@ -51,12 +51,14 @@ export const FormValue = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className=" flex flex-col w-full gap-5 items-center"
+      className=" flex flex-col w-full gap-5 items-center px-5 md:px-0"
     >
       <Toaster />
       <TextField
         id="outlined-basic"
-        className="w-full md:w-80"
+        sx={{
+          width: "100%",
+        }}
         label={"Nome"}
         variant="outlined"
         error={!!errors.nome}
@@ -74,8 +76,11 @@ export const FormValue = () => {
       <Button
         variant="contained"
         type="submit"
-        sx={{ background: "#133A6F" }}
-        className="w-full"
+        sx={{
+          width: "100%",
+          fontWeight:700,
+        }}
+      
         disabled={disabled}
       >
         {" "}

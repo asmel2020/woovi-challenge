@@ -6,9 +6,7 @@ import { useForm } from "react-hook-form";
 import { Button, CircularProgress, RadioGroup } from "@mui/material";
 import { CardPix } from "../CardPix";
 import { CardGroup } from "../CardGroup";
-import {
-  GetPayment,
-} from "@/common/interfaces/getPayment.interfaces";
+import { GetPayment } from "@/common/interfaces/getPayment.interfaces";
 import { useRouter } from "next/navigation";
 import { post } from "@/common/request";
 interface Props {
@@ -27,7 +25,7 @@ export const FormSelectPayment = ({ data }: Props) => {
     resolver: yupResolver(schema),
   });
   const onSubmit = async (formData: FormData) => {
-    setDisabled(true)
+    setDisabled(true);
     let name = data.nome || "";
     let amount = data.amount;
     let installment = formData.id;
@@ -54,7 +52,8 @@ export const FormSelectPayment = ({ data }: Props) => {
         className="flex flex-col gap-8"
       >
         {/* Card Pix */}
-        <CardPix disabled={disabled}
+        <CardPix
+          disabled={disabled}
           value={data.amount}
           cashback={data.valuePix.pixCashback}
           register={register("id")}
@@ -62,14 +61,14 @@ export const FormSelectPayment = ({ data }: Props) => {
 
         {/*  CardGroup */}
         <CardGroup
-        disabled={disabled}
+          disabled={disabled}
           pixParcelado={data.valuePix.PixParcelado}
           register={register("id")}
         />
       </RadioGroup>
       <Button
         variant="contained"
-        sx={{ background: "#133A6F" }}
+        sx={{ fontWeight: 700 }}
         type="submit"
         className="w-full"
         disabled={disabled}

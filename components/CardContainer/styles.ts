@@ -1,13 +1,19 @@
-import tw from "tailwind-styled-components";
-interface ContainerProps {
-  $isHidden: boolean;
-}
+import { SxProps } from "@mui/system";
 
-const IconTag = tw.span<ContainerProps>`
-${({$isHidden})=>$isHidden?"hidden":""}
-absolute -top-3 left-5 h-7 w-auto px-5 bg-[#E5E5E5] rounded-full text-center text-lg font-bold
-`
+const ChipStyles: SxProps = {
+  position: "absolute",
+  top: -12,
+  left: 20,
+  height: 28,
+  width: "auto",
+  borderRadius: 9999,
+  textAlign: "center",
+  fontSize: 18,
+  fontWeight: 700,
+  backgroundColor:"grey.900"
+} as const;
 
-export {
-    IconTag
-}
+
+
+
+export {  ChipStyles };

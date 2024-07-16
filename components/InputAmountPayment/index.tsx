@@ -13,27 +13,25 @@ export const InputAmountPayment = ({ register, ...props }: Props) => {
   const [value, setValue] = useState("");
 
   const formatNumber = (number: string) => {
-    // Elimina cualquier caracter que no sea un número
-
-    // Mantener solo números y una coma
+   
     let value: string = number.replace(/[^0-9,]/g, "");
 
     if (value[0] === ",") {
       value = "";
     }
-    // Permitir solo una coma
+  
     const parts = value.split(",");
 
     if (parts.length > 2) {
       value = parts[0] + "," + parts.slice(1).join("");
     }
 
-    // Restringir a dos dígitos después de la coma
+   
     if (parts[1] && parts[1].length > 2) {
       value = parts[0] + "," + parts[1].substring(0, 2);
     }
 
-    // No permitir que el número comience con 0 a menos que sea 0,00
+ 
     if (value.startsWith("0") && !/^0(,0{0,2})?$/.test(value)) {
       value = value.replace(/^0+/, "");
     }
@@ -65,7 +63,9 @@ export const InputAmountPayment = ({ register, ...props }: Props) => {
       {...props}
       {...register}
       id="outlined-basic"
-      className="w-64 md:w-80"
+      sx={{
+        width: "100%",
+      }}
       variant="outlined"
       value={value}
       onChange={handleChange}

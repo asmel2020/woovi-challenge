@@ -1,33 +1,58 @@
 import tw from "tailwind-styled-components";
-interface ContainerProps {
-  $isHeader: "header" | "body" | "footer";
+
+import { SxProps } from "@mui/system";
+
+const commonStyles={
+  display:"flex",
+  flexDirection:"column"
 }
-const Container = tw.section<ContainerProps>`
-flex
-w-full
-flex-col
-border-[3px]
-mix-h-[105px]
-px-5
-pt-[14px]
-pb-5
-h-auto
-gap-3
-${({ $isHeader }) => {
-  switch ($isHeader) {
-    case "header":
-      return "rounded-t-xl";
+const CardStyles: SxProps = {
+  display: "flex",
+  flexDirection: "column",
+  width: "100%",
+  height: "auto",
+  minHeight: 105,
+  borderColor: "grey.900",
+} as const;
 
-    case "body":
-      return "border-t-0";
+const CardBodyStyles: SxProps = {
+  display: "flex",
+  flexDirection:"column",
+  justifyContent: "space-between",
+  paddingTop: 2,
+  paddingBottom: 1,
+} as const;
 
-    case "footer":
-      return "border-t-0 rounded-b-xl";
+const CardBorderStyles: {
+  header: SxProps;
+  body: SxProps;
+  footer: SxProps;
+} = {
+  header: {
+    border: 3,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+  },
+  body: {
+    border: 0,
+    borderLeft: 3,
+    borderRight: 3,
+    borderBottom: 3,
+  },
+  footer: {
+    border: 3,
+    borderTop: 0,
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+  },
+};
 
-    default:
-      break;
-  }
-}}
-`;
+const ButtonStyles:SxProps ={
+    fontWeight:700,
+    width: "100%",
+    marginTop: 2,
 
-export { Container };
+} as const
+const TextPrimary :SxProps= { fontWeight: 700, fontSize: 18 }
+const TextSecondary :SxProps ={ fontWeight: 600, color:"text.secondary" }
+export { CardStyles, CardBorderStyles, CardBodyStyles,commonStyles,TextPrimary,TextSecondary,ButtonStyles };

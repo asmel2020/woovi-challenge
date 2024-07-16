@@ -23,7 +23,7 @@ export default function RootLayout({
         <AppRouterCacheProvider>
           <StyledRoot>
             <NavBar />
-            <section className="flex flex-col items-center">{children}</section>
+            <section className="">{children}</section>
             <Footer />
           </StyledRoot>
         </AppRouterCacheProvider>

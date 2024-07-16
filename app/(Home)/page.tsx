@@ -2,21 +2,25 @@ import React from "react";
 
 import { PropsPage } from "@/common/interfaces/PropsPage";
 
-import { Typography } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { redirect } from "next/navigation";
-import { GetPayments } from "@/common/interfaces/getPayment.interfaces";
+
 import { get } from "@/common/request";
-import { parserMoney } from "@/common/utils/parserMoney";
-import { ButtonPaymentPix } from "@/components/ButtonPaymentPix";
+
 import { MainData } from "@/common/interfaces/mainData.interfaces";
 import { FormValue } from "@/components/FormValue";
 import { CardGroupPending } from "@/components/CardGroupPending";
+import { ContainerStyles } from "./home.styles";
+
+
+
 interface Props extends Omit<PropsPage, "searchParams"> {
   searchParams: { paymentId: string };
 }
 
-export default async function Page({ searchParams:{ paymentId } }: Props) {
+export default async function Page({ searchParams: { paymentId } }: Props) {
   const fetchData = async () => {
+    'use server'
     try {
       const { result }: MainData = await get({
         url: `/api/data`,
@@ -27,13 +31,14 @@ export default async function Page({ searchParams:{ paymentId } }: Props) {
   };
 
   const data = await fetchData();
+  
   return (
-    <main className="flex flex-col min-h-screen gap-16">
+    <Container sx={ContainerStyles}>
       <FormValue />
-      <section className=" flex flex-col gap-16">
+      <Box sx={{display:"flex",flexDirection:"column",width:"100%" , gap:8}}>
         <CardGroupPending payment={data.paymentComplete} isComplete={true} />
         <CardGroupPending payment={data.paymentPending} isComplete={false} />
-      </section>
-    </main>
+      </Box>
+    </Container>
   );
 }
