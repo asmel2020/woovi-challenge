@@ -16,7 +16,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { ModalPixTransfer } from "../ModalPixTransfer";
 
 export const FormCreditCardPayment = ({ data }: FormCreditCArdPaymentProps) => {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(!open);
 
   const [disabled, setDisabled] = useState<boolean>(false);
