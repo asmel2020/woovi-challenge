@@ -2,12 +2,13 @@ import React from "react";
 
 import { PropsPage } from "@/common/interfaces/PropsPage";
 
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { redirect } from "next/navigation";
 import { GetPayments } from "@/common/interfaces/getPayment.interfaces";
 import { get } from "@/common/request";
 import { parserMoney } from "@/common/utils/parserMoney";
 import { ButtonPaymentPix } from "@/components/ButtonPaymentPix";
+import { ContainerStyles } from "./pix.styles";
 interface Props extends Omit<PropsPage, "searchParams"> {
   searchParams: { paymentId: string };
 }
@@ -20,9 +21,7 @@ export default async function Page({ searchParams: { paymentId } }: Props) {
         url: `/api/payment/${paymentId}`,
       });
       return result.result;
-    } catch (error) {
-
-    }
+    } catch (error) {}
 
     redirect("/");
   };
@@ -30,21 +29,24 @@ export default async function Page({ searchParams: { paymentId } }: Props) {
   const data = await fetchData(paymentId);
   if (data.isPaymentPix) redirect("/");
   return (
-    <main className="flex flex-col max-w-[464px]   w-full pl-4 pr-5 gap-8">
-     
-      <section className="m-auto">
-        <h2 className="text-2xl font-bold"> Transferindo</h2>
-      </section>
-      <section className="flex flex-col">
+    <Box sx={{ ...ContainerStyles }}>
+      <Box sx={{ margin: "auto" }}>
+        <Typography sx={{ fontSize: "24px", fontWeight: 700 }}>
+          Transferindo
+        </Typography>
+      </Box>
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Typography fontSize={28} fontWeight={800}>
           R$ {parserMoney(data.payInstallment)}
         </Typography>
         <Typography fontSize={18} fontWeight={800} color={"#B2B2B2"}>
-          {" "}
           Para: Woovi
         </Typography>
-      </section>data
-      <ButtonPaymentPix paymentId={data.id}   installment={data.totalInstallment} />
-    </main>
+      </Box>
+      <ButtonPaymentPix
+        paymentId={data.id}
+        installment={data.totalInstallment}
+      />
+    </Box>
   );
 }

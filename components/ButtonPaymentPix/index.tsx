@@ -37,9 +37,8 @@ export const ButtonPaymentPix = ({ paymentId, installment }: Props) => {
       <Button
         disabled={disabled}
         variant="contained"
-        sx={{ background: "#133A6F" }}
+        sx={{ width: "100%", height: "40px" }}
         type="submit"
-        className="w-full h-10"
         onClick={() => handelPayment(paymentId)}
       >
         {disabled ? <CircularProgress size={20} /> : "Transfeir"}

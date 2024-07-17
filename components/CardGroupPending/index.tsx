@@ -70,13 +70,13 @@ export const CardGroupPending = ({ payment, isComplete }: Props) => {
                 <CardContent sx={{ ...CardBodyStyles }}>
                   <Typography
                     sx={{ ...TextPrimary }}
-                    className="font-bold text-lg"
+                  
                   >
                     Total: {parserMoney(amountInstallment)}
                   </Typography>
                   <Typography
                     sx={{ ...TextPrimary }}
-                    className="font-bold text-lg"
+                 
                   >
                     Parcelas: {totalInstallment}
                   </Typography>

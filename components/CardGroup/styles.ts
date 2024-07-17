@@ -6,13 +6,16 @@ const CardStyles: SxProps = {
   width: "100%",
   height: "auto",
   minHeight: 105,
-  gap: 12,
+  cursor: "pointer",
+  border: 3,
   borderColor: "grey.900",
+  padding:2
 } as const;
 
 const CardBodyStyles: SxProps = {
   display: "flex",
   justifyContent: "space-between",
+  padding:0
 } as const;
 
 const CardBorderStyles: {
@@ -21,22 +24,14 @@ const CardBorderStyles: {
   footer: SxProps;
 } = {
   header: {
-    border: 3,
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
   },
-  body: {
-    border: 0,
-    borderLeft: 3,
-    borderRight: 3,
-    borderBottom: 3,
-  },
+  body: {},
   footer: {
-    border: 3,
-    borderTop: 0,
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
   },
 };
 
-export { CardBodyStyles,CardBorderStyles };
+export { CardBodyStyles, CardBorderStyles, CardStyles };

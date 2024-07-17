@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles.css";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 interface Props {
   title: string;
@@ -8,9 +8,22 @@ interface Props {
 }
 export const Tag = ({ title, subTitle }: Props) => {
   return (
-    <div className="c flex items-center pl-2 rounded bg-[#133A6F] h-8 text-white gap-1">
-      <Typography className="font-bold">{title}</Typography>{" "}
-      <span>{subTitle}</span>
-    </div>
+    <Box
+      sx={{
+        display: "flex",
+        justifyItems: "center",
+        paddingLeft: "8px",
+        borderRadius: "4px",
+        height: "32px",
+        backgroundColor: "info.main",
+        gap: "4px",
+        color:"white",
+        paddingY:"4px"
+      }}
+      className="c"
+    >
+      <Typography sx={{ fontWeight: 700 }}>{title}</Typography>
+      <Typography>{subTitle}</Typography>
+    </Box>
   );
 };
