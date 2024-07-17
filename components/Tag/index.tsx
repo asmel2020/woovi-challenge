@@ -14,16 +14,33 @@ export const Tag = ({ title, subTitle }: Props) => {
         justifyItems: "center",
         paddingLeft: "8px",
         borderRadius: "4px",
-        height: "32px",
+        height: "auto",
         backgroundColor: "info.main",
         gap: "4px",
-        color:"white",
-        paddingY:"4px"
+        color: "white",
+        paddingY: "4px",
       }}
       className="c"
     >
-      <Typography sx={{ fontWeight: 700 }}>{title}</Typography>
-      <Typography>{subTitle}</Typography>
+      <Typography
+        sx={{
+          fontWeight: 700,
+          fontSize: {
+            xs: "16px",
+          },
+        }}
+      >
+        {title}
+      </Typography>
+      <Typography
+        sx={{
+          fontSize: {
+            xs: "16px",
+          },
+        }}
+      >
+        {subTitle}
+      </Typography>
     </Box>
   );
 };

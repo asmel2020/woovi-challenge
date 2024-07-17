@@ -20,8 +20,7 @@ export const FormSelectPayment = ({ data }: Props) => {
   const {
     register,
     handleSubmit,
-    reset,
-    getValues,
+
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
@@ -50,12 +49,18 @@ export const FormSelectPayment = ({ data }: Props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+        }}
+      >
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"
           defaultValue={activeValue}
           name="radio-buttons-group"
-          sx={{ display: "flex", flexDirection: "column", gap: "32px" }}
+          sx={{ display: "flex", flexDirection: "column", gap: "32px",width:"100%" }}
           /*  onChange={(e) => ActiveValue(+e.target.value)} */
           value={activeValue}
         >
@@ -78,9 +83,10 @@ export const FormSelectPayment = ({ data }: Props) => {
             setActive={setActiveValue}
           />
         </RadioGroup>
+
         <Button
           variant="contained"
-          sx={{ fontWeight: 700, width: "100%" }}
+          sx={{ fontWeight: 700, width: "100%", margin: "auto" }}
           type="submit"
           disabled={disabled}
         >

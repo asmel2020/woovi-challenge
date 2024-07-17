@@ -26,7 +26,7 @@ export const PixQrColePege = ({ id }: Props) => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        justifyItems: "center",
+        margin:"auto",
         gap: "20px",
       }}
     >

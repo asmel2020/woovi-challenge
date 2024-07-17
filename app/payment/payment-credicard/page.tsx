@@ -7,7 +7,9 @@ import { redirect } from "next/navigation";
 import { FooterPayment } from "@/components/FooterPayment";
 import { FormCreditCardPayment } from "@/components/FormCreditCardPayment";
 import { Box, Typography } from "@mui/material";
-import { ContainerStyles, TitleStyles } from "./payment-credicard.styles";
+import { TitleStyles } from "./payment-credicard.styles";
+import { ContainerStyles } from "@/common/styles";
+
 
 interface Props extends Omit<PropsPage, "searchParams"> {
   searchParams: { paymentId: string; parcela: string };

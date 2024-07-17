@@ -8,7 +8,9 @@ import { GetPayments } from "@/common/interfaces/getPayment.interfaces";
 import { get } from "@/common/request";
 import { parserMoney } from "@/common/utils/parserMoney";
 import { ButtonPaymentPix } from "@/components/ButtonPaymentPix";
-import { ContainerStyles } from "./pix.styles";
+import { ContainerStyles } from "@/common/styles";
+
+
 interface Props extends Omit<PropsPage, "searchParams"> {
   searchParams: { paymentId: string };
 }
@@ -30,7 +32,7 @@ export default async function Page({ searchParams: { paymentId } }: Props) {
   if (data.isPaymentPix) redirect("/");
   return (
     <Box sx={{ ...ContainerStyles }}>
-      <Box sx={{ margin: "auto" }}>
+      <Box sx={{ margin: "auto",textAlign:"left" }}>
         <Typography sx={{ fontSize: "24px", fontWeight: 700 }}>
           Transferindo
         </Typography>

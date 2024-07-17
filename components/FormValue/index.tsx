@@ -54,7 +54,7 @@ export const FormValue = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          width: "100%",
+         
           gap: "20px",
           justifyItems: "center",
           paddingX: "10px",

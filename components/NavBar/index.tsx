@@ -12,7 +12,7 @@ export const NavBar = () => {
         justifyContent: "center",
         width: "100%",
         height: "56px",
-        marginTop: "36px",
+        marginY: "36px",
       }}
      
     >

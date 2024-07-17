@@ -10,6 +10,7 @@ export const CardContainer = ({ children, label, hidden = false }: Props) => {
     <Box
       sx={{
         position: "relative",
+        width:"100%"
       }}
     >
       <Chip
