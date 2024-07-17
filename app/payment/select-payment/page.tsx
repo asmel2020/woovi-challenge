@@ -5,7 +5,9 @@ import { FormSelectPayment } from "@/components/FormSelectPayment";
 import { FormatMoney } from "format-money-js";
 import { percentage } from "@/common/utils/percentage";
 import { Box, Container, Typography } from "@mui/material";
-import { ContainerStyles } from "./select-payment.styles";
+import { ContainerStyles } from "@/common/styles";
+
+
 
 interface Props extends Omit<PropsPage, "searchParams"> {
   searchParams: { data: string };
@@ -48,12 +50,9 @@ export default async function Page({ searchParams: { data } }: Props) {
 
   return (
     <Container sx={{ ...ContainerStyles }}>
-      <Box sx={{ margin: "auto" }}>
-        <Typography sx={{ fontSize: 26, fontWeight: 700 }}>
-          <Typography sx={{ textTransform: "capitalize" }}>
-            {result.nome}
-          </Typography>
-          , como você quer pagar?
+      <Box sx={{ margin: "auto",textAlign:"center" }}>
+        <Typography sx={{ display: "flex", fontSize: 26, fontWeight: 700 }}>
+          {result.nome}, como você quer pagar?
         </Typography>
       </Box>
 

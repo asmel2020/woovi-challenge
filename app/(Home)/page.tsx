@@ -10,7 +10,8 @@ import { get } from "@/common/request";
 import { MainData } from "@/common/interfaces/mainData.interfaces";
 import { FormValue } from "@/components/FormValue";
 import { CardGroupPending } from "@/components/CardGroupPending";
-import { ContainerStyles } from "./home.styles";
+import { ContainerStyles } from "@/common/styles";
+
 
 
 
@@ -33,7 +34,7 @@ export default async function Page({ searchParams: { paymentId } }: Props) {
   const data = await fetchData();
   
   return (
-    <Container sx={ContainerStyles}>
+    <Container sx={{...ContainerStyles}}>
       <FormValue />
       <Box sx={{display:"flex",flexDirection:"column",width:"100%" , gap:8}}>
         <CardGroupPending payment={data.paymentComplete} isComplete={true} />

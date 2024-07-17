@@ -109,7 +109,6 @@ export const CardGroup = ({
                   />
                 )}
               </Card>
-              
             </CardContainer>
           );
         }

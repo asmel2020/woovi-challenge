@@ -3,9 +3,7 @@ import { SxProps } from "@mui/material";
 const CardStyles: SxProps = {
   display: "flex",
   flexDirection: "column",
-  width: "100%",
   height: "auto",
-  minHeight: 105,
   gap: 2,
   padding: 2,
   border: 3,

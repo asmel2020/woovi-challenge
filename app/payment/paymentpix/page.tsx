@@ -8,7 +8,9 @@ import { parserMoney } from "@/common/utils/parserMoney";
 import { PixQrColePege } from "@/components/PixQrColePege";
 import { FooterPayment } from "@/components/FooterPayment";
 import { Box, Container, Typography } from "@mui/material";
-import { ContainerStyles, TitleStyles } from "./paymentpix.styles";
+import {  TitleStyles } from "./paymentpix.styles";
+import { ContainerStyles } from "@/common/styles";
+
 
 interface Props extends Omit<PropsPage, "searchParams"> {
   searchParams: { paymentId: string; parcela: string };

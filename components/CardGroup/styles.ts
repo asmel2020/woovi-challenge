@@ -3,19 +3,22 @@ import { SxProps } from "@mui/material";
 const CardStyles: SxProps = {
   display: "flex",
   flexDirection: "column",
-  width: "100%",
+
   height: "auto",
-  minHeight: 105,
   cursor: "pointer",
   border: 3,
   borderColor: "grey.900",
-  padding:2
+  padding: "20px",
+  gap: "10px",
 } as const;
 
 const CardBodyStyles: SxProps = {
+  padding: "0px",
+  paddingBottom: "0px",
+  height: "auto",
   display: "flex",
   justifyContent: "space-between",
-  padding:0
+  justifyItems: "center",
 } as const;
 
 const CardBorderStyles: {
