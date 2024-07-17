@@ -10,14 +10,14 @@ import { parserMoney } from "@/common/utils/parserMoney";
 interface Props {
   isCardPay: boolean;
   paymentPix: number;
-  creditCardInstallment:number
-  isPaymentPix:boolean
+  creditCardInstallment: number;
+  isPaymentPix: boolean;
 }
 export default function BasicTimeline({
   isCardPay = false,
   paymentPix = 0,
-  creditCardInstallment=0,
-  isPaymentPix
+  creditCardInstallment = 0,
+  isPaymentPix,
 }: Props) {
   return (
     <Timeline
@@ -39,14 +39,20 @@ export default function BasicTimeline({
           {isCardPay ? (
             <TimelineConnector
               sx={{
-                background: isPaymentPix?"#03D69D":"",
+                background: isPaymentPix ? "#03D69D" : "",
               }}
             />
           ) : (
             <></>
           )}
         </TimelineSeparator>
-        <TimelineContent className=" flex justify-between w-full">
+        <TimelineContent
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
           <Typography fontSize={18} fontWeight={600}>
             1ª entrada no Pix
           </Typography>
@@ -61,16 +67,22 @@ export default function BasicTimeline({
             <TimelineDot
               variant="outlined"
               sx={{
-                borderColor: isPaymentPix?"#03D69D":"",
+                borderColor: isPaymentPix ? "#03D69D" : "",
               }}
             />
           </TimelineSeparator>
-          <TimelineContent className=" flex justify-between w-full">
+          <TimelineContent
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
             <Typography fontSize={18} fontWeight={600}>
               2ª no cartão
             </Typography>
             <Typography fontSize={18} fontWeight={800}>
-              R$ {parserMoney(paymentPix*creditCardInstallment)}
+              R$ {parserMoney(paymentPix * creditCardInstallment)}
             </Typography>
           </TimelineContent>
         </TimelineItem>

@@ -2,15 +2,25 @@ import Image from "next/image";
 import React from "react";
 import { LogoNavbarIco } from "../Svg";
 import Link from "next/link";
+import { Box } from "@mui/material";
 
 export const NavBar = () => {
   return (
-    <nav className="flex justify-center w-full h-14 mt-9">
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        width: "100%",
+        height: "56px",
+        marginTop: "36px",
+      }}
+     
+    >
       <Link href={"/"}>
-        <figure className="">
+        <figure>
           <LogoNavbarIco />
         </figure>
       </Link>
-    </nav>
+    </Box>
   );
 };

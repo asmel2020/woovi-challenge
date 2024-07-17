@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 interface Props {
   open: boolean;
-  label?:string
+  label?: string;
 }
 const style = {
   position: "absolute" as "absolute",
@@ -21,7 +21,10 @@ const style = {
   p: 4,
 };
 
-export const ModalPixTransfer = ({ open,label="Transferência feita" }: Props) => {
+export const ModalPixTransfer = ({
+  open,
+  label = "Transferência feita",
+}: Props) => {
   const router = useRouter();
 
   return (
@@ -47,9 +50,8 @@ export const ModalPixTransfer = ({ open,label="Transferência feita" }: Props) =
           </Typography>
           <Button
             variant="contained"
-            sx={{ background: "#133A6F" }}
+            sx={{ background: "#133A6F", width: "100%", height: "40px" }}
             type="submit"
-            className="w-full h-10"
             onClick={() => router.replace("/")}
           >
             Concluir

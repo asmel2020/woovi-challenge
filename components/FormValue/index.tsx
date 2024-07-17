@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { InputAmountPayment } from "../InputAmountPayment";
-import { Button, CircularProgress, TextField } from "@mui/material";
+import { Box, Button, CircularProgress, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormData, schema } from "./validate";
@@ -49,43 +49,50 @@ export const FormValue = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className=" flex flex-col w-full gap-5 items-center px-5 md:px-0"
-    >
-      <Toaster />
-      <TextField
-        id="outlined-basic"
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Box
         sx={{
+          display: "flex",
+          flexDirection: "column",
           width: "100%",
+          gap: "20px",
+          justifyItems: "center",
+          paddingX: "10px",
         }}
-        label={"Nome"}
-        variant="outlined"
-        error={!!errors.nome}
-        {...register("nome")}
-        helperText={errors.nome?.message}
-        disabled={disabled}
-      />
-      <InputAmountPayment
-        register={register("amount")}
-        error={!!errors.amount}
-        label="Valor que você deseja pagar"
-        helperText={errors.amount?.message}
-        disabled={disabled}
-      />
-      <Button
-        variant="contained"
-        type="submit"
-        sx={{
-          width: "100%",
-          fontWeight:700,
-        }}
-      
-        disabled={disabled}
       >
-        {" "}
-        {disabled ? <CircularProgress size={20} /> : "Pagar"}
-      </Button>
+        <Toaster />
+        <TextField
+          id="outlined-basic"
+          sx={{
+            width: "100%",
+          }}
+          label={"Nome"}
+          variant="outlined"
+          error={!!errors.nome}
+          {...register("nome")}
+          helperText={errors.nome?.message}
+          disabled={disabled}
+        />
+        <InputAmountPayment
+          register={register("amount")}
+          error={!!errors.amount}
+          label="Valor que você deseja pagar"
+          helperText={errors.amount?.message}
+          disabled={disabled}
+        />
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{
+            width: "100%",
+            fontWeight: 700,
+          }}
+          disabled={disabled}
+        >
+          {" "}
+          {disabled ? <CircularProgress size={20} /> : "Pagar"}
+        </Button>
+      </Box>
     </form>
   );
 };

@@ -1,24 +1,23 @@
-import { SxProps } from "@mui/system";
+import { SxProps } from "@mui/material";
 
-const commonStyles={
-  display:"flex",
-  flexDirection:"column"
-}
 const CardStyles: SxProps = {
   display: "flex",
   flexDirection: "column",
   width: "100%",
   height: "auto",
   minHeight: 105,
-  borderColor: "grey.900",
+  gap: 2,
+  padding: 2,
+  border: 3,
+  borderRadius: 3,
+  "&:hover": {
+    cursor: "pointer",
+  },
 } as const;
 
 const CardBodyStyles: SxProps = {
   display: "flex",
-  flexDirection:"column",
   justifyContent: "space-between",
-  paddingTop: 2,
-  paddingBottom: 1,
 } as const;
 
 const CardBorderStyles: {
@@ -45,12 +44,4 @@ const CardBorderStyles: {
   },
 };
 
-const ButtonStyles:SxProps ={
-    fontWeight:700,
-    width: "100%",
-    marginTop: 2,
-
-} as const
-const TextPrimary :SxProps= { fontWeight: 700, fontSize: 18 }
-const TextSecondary :SxProps ={ fontWeight: 600, color:"text.secondary" }
-export { CardStyles, CardBorderStyles, CardBodyStyles,commonStyles,TextPrimary,TextSecondary,ButtonStyles };
+export { CardBodyStyles, CardBorderStyles, CardStyles };

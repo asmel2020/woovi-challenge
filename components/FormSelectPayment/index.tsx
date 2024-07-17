@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { FormData, schema } from "./validate";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { Button, CircularProgress, RadioGroup } from "@mui/material";
+import { Box, Button, CircularProgress, RadioGroup } from "@mui/material";
 import { CardPix } from "../CardPix";
 import { CardGroup } from "../CardGroup";
 import { GetPayment } from "@/common/interfaces/getPayment.interfaces";
@@ -15,14 +15,19 @@ interface Props {
 
 export const FormSelectPayment = ({ data }: Props) => {
   const [disabled, setDisabled] = useState<boolean>(false);
+  const [activeValue, setActiveValue] = useState<number>(1);
   const router = useRouter();
   const {
     register,
     handleSubmit,
     reset,
+    getValues,
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
+    defaultValues: {
+      id: activeValue,
+    },
   });
   const onSubmit = async (formData: FormData) => {
     setDisabled(true);
@@ -44,37 +49,44 @@ export const FormSelectPayment = ({ data }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
-      <RadioGroup
-        aria-labelledby="demo-radio-buttons-group-label"
-        defaultValue={1}
-        name="radio-buttons-group"
-        className="flex flex-col gap-8"
-      >
-        {/* Card Pix */}
-        <CardPix
-          disabled={disabled}
-          value={data.amount}
-          cashback={data.valuePix.pixCashback}
-          register={register("id")}
-        />
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        <RadioGroup
+          aria-labelledby="demo-radio-buttons-group-label"
+          defaultValue={activeValue}
+          name="radio-buttons-group"
+          sx={{ display: "flex", flexDirection: "column", gap: "32px" }}
+          /*  onChange={(e) => ActiveValue(+e.target.value)} */
+          value={activeValue}
+        >
+          {/* Card Pix */}
+          <CardPix
+            disabled={disabled}
+            value={data.amount}
+            cashback={data.valuePix.pixCashback}
+            register={register("id")}
+            activeValue={activeValue}
+            setActive={setActiveValue}
+          />
 
-        {/*  CardGroup */}
-        <CardGroup
+          {/*  CardGroup */}
+          <CardGroup
+            disabled={disabled}
+            pixParcelado={data.valuePix.PixParcelado}
+            register={register("id")}
+            activeValue={activeValue}
+            setActive={setActiveValue}
+          />
+        </RadioGroup>
+        <Button
+          variant="contained"
+          sx={{ fontWeight: 700, width: "100%" }}
+          type="submit"
           disabled={disabled}
-          pixParcelado={data.valuePix.PixParcelado}
-          register={register("id")}
-        />
-      </RadioGroup>
-      <Button
-        variant="contained"
-        sx={{ fontWeight: 700 }}
-        type="submit"
-        className="w-full"
-        disabled={disabled}
-      >
-        {disabled ? <CircularProgress size={20} /> : "Selecione"}
-      </Button>
+        >
+          {disabled ? <CircularProgress size={20} /> : "Selecione"}
+        </Button>
+      </Box>
     </form>
   );
 };

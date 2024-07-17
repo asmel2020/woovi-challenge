@@ -1,5 +1,5 @@
 "use client";
-import { Button, Card } from "@mui/material";
+import { Box, Button, Card } from "@mui/material";
 import React, { useEffect } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { ClipCopyIcon } from "../Svg";
@@ -22,9 +22,25 @@ export const PixQrColePege = ({ id }: Props) => {
   });
 
   return (
-    <section className="flex flex-col items-center gap-5">
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyItems: "center",
+        gap: "20px",
+      }}
+    >
       <Toaster />
-      <Card  sx={{height:320,width:320,border:3,borderRadius:3,padding:1 ,borderColor:"secondary.main"}} >
+      <Card
+        sx={{
+          height: 320,
+          width: 320,
+          border: 3,
+          borderRadius: 3,
+          padding: 1,
+          borderColor: "secondary.main",
+        }}
+      >
         <QRCode
           size={256}
           style={{ height: "auto", maxWidth: "100%", width: "100%" }}
@@ -51,6 +67,6 @@ export const PixQrColePege = ({ id }: Props) => {
           <ClipCopyIcon />
         </Button>
       </CopyToClipboard>
-    </section>
+    </Box>
   );
 };

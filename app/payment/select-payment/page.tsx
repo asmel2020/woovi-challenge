@@ -43,14 +43,17 @@ export default async function Page({ searchParams: { data } }: Props) {
       valuePix: result,
     };
   };
+
   const result = Decode(data);
 
   return (
-    <Container sx={{ ...ContainerStyles }} className="">
+    <Container sx={{ ...ContainerStyles }}>
       <Box sx={{ margin: "auto" }}>
         <Typography sx={{ fontSize: 26, fontWeight: 700 }}>
-          <span className="capitalize">{result.nome}</span>, como você quer
-          pagar?
+          <Typography sx={{ textTransform: "capitalize" }}>
+            {result.nome}
+          </Typography>
+          , como você quer pagar?
         </Typography>
       </Box>
 
